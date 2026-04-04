@@ -13,9 +13,8 @@ connectDB();
 // 🔥 Middleware
 app.use(
   cors({
-    origin: [
-      "https://codesniper-botx.github.io"
-    ],
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
