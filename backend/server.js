@@ -11,7 +11,14 @@ const app = express();
 connectDB();
 
 // 🔥 Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://codesniper-botx.github.io"
+    ],
+    credentials: true
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
