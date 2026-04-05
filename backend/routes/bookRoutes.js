@@ -18,6 +18,6 @@ const upload = multer({ storage });
 
 // ✅ routes
 router.post("/upload", upload.single("file"), uploadBook);
-router.get("/", getBooks);
+router.get("/", getBooks); // ⚠️ ये function exist होना चाहिए
 
 module.exports = router;
