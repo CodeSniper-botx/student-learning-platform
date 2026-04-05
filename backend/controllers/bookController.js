@@ -10,12 +10,14 @@ exports.uploadBook = async (req, res) => {
       return res.status(400).json({ error: "File not uploaded" });
     }
 
-   const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    // ✅ Only relative path store karo
+    const fileUrl = `/uploads/${req.file.filename}`;
+
     const book = new Book({
       title: req.body.title,
       subject: req.body.subject,
-      className: req.body.className,
-      file: fileUrl,
+      class: req.body.className, // ✅ fix class name
+      fileUrl: fileUrl,          // ✅ fix key name
     });
 
     await book.save();
@@ -28,7 +30,7 @@ exports.uploadBook = async (req, res) => {
   }
 };
 
-// 🔥 GET ALL BOOKS (MISSING FUNCTION — THIS WAS THE BUG)
+// 🔥 GET ALL BOOKS
 exports.getBooks = async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 });

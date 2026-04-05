@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/api";
 
+const BASE_URL = "https://student-learning-platform-vvx2.onrender.com";
+
 function Home() {
   const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -16,7 +18,6 @@ function Home() {
     });
   }, []);
 
-  // 🔥 FILTER (ONLY HOME PAGE)
   useEffect(() => {
     let temp = [...books];
 
@@ -43,7 +44,6 @@ function Home() {
     <div>
       <h2 style={{ textAlign: "center" }}>📚 All Books</h2>
 
-      {/* FILTER */}
       <div style={styles.filterBox}>
         <select onChange={(e) => setSelectedClass(e.target.value)}>
           <option value="">All Classes</option>
@@ -75,30 +75,29 @@ function Home() {
         </button>
       </div>
 
-      {/* BOOKS */}
       <div style={styles.grid}>
         {filteredBooks.length > 0 ? (
-          filteredBooks.map((book, index) => (
-             console.log(book);
-            <div key={index} style={styles.card}>
-              <h3>{book.title || "No Title"}</h3>
+          filteredBooks.map((book, index) => {
+            console.log(book); // ✅ correct place
 
-              <p>
-                <b>Subject:</b> {book.subject || "N/A"}
-              </p>
-              <p>
-                <b>Class:</b> {book.class || "N/A"}
-              </p>
+            return (
+              <div key={index} style={styles.card}>
+                <h3>{book.title || "No Title"}</h3>
 
-              <a
-               href={`https://student-learning-platform-vvx2.onrender.com${book.fileUrl}`}target="_blank"
-                rel="noreferrer"
-                style={styles.button}
-              >
-                📖 View Book
-              </a>
-            </div>
-          ))
+                <p><b>Subject:</b> {book.subject || "N/A"}</p>
+                <p><b>Class:</b> {book.class || "N/A"}</p>
+
+                <a
+                  href={`${BASE_URL}${book.fileUrl}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={styles.button}
+                >
+                  📖 View Book
+                </a>
+              </div>
+            );
+          })
         ) : (
           <p style={{ textAlign: "center" }}>No books found 😢</p>
         )}
