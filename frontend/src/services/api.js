@@ -41,19 +41,22 @@ export const runOCR = (formData) =>
 
 // ================= QUESTIONS =================
 
-// 🔥 Get all questions
-export const getQuestions = () => API.get("/questions");
 
-// 🔥 Ask question (text + image)
-export const askQuestion = (formData) =>
-  API.post("/questions", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-// get question
-export const getQuestion = (id) =>
-  API.get(`/questions/${id}`);
+// 🔥 GET ALL QUESTIONS
+router.get("/", async (req, res) => {
+  try {
+    const Question = require("../models/Question");
+
+    const questions = await Question.find()
+      .populate("user", "name")
+      .sort({ createdAt: -1 });
+
+    res.json(questions);
+  } catch (err) {
+    console.error("FETCH ERROR:", err);
+    res.status(500).json({ error: "Failed to fetch questions" });
+  }
+});
 // ================= ANSWERS =================
 
 // 🔥 Add answer (TEXT + IMAGE SUPPORT ✅)
