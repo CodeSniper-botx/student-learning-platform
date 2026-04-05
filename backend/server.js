@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 🔥 Static Folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-const fs = require("fs");
+// const fs = require("fs");
 const path = require("path");
 
 // 🔥 ensure uploads folder exists
