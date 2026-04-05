@@ -51,7 +51,9 @@ export const askQuestion = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
-
+// get question
+export const getQuestion = (id) =>
+  API.get(`/questions/${id}`);
 // ================= ANSWERS =================
 
 // 🔥 Add answer (TEXT + IMAGE SUPPORT ✅)
