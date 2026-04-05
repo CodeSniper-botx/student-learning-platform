@@ -2,12 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const multer = require("multer");
+const path = require("path");
+
 const { uploadBook, getBooks } = require("../controllers/bookController");
+
+// 🔥 upload path fix
+const uploadPath = path.join(__dirname, "../uploads");
 
 // multer setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -16,8 +21,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ✅ routes
+// routes
 router.post("/upload", upload.single("file"), uploadBook);
-router.get("/", getBooks); // ⚠️ ये function exist होना चाहिए
+router.get("/", getBooks);
 
 module.exports = router;
