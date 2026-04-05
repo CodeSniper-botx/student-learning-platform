@@ -37,5 +37,22 @@ router.post("/", upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "Answer failed" });
   }
 });
+// 🔥 GET ANSWERS BY QUESTION ID
+router.get("/:questionId", async (req, res) => {
+  try {
+    const Answer = require("../models/Answer");
+
+    const answers = await Answer.find({
+      question: req.params.questionId,
+    })
+      .populate("user", "name")
+      .sort({ createdAt: -1 });
+
+    res.json(answers);
+  } catch (err) {
+    console.error("FETCH ANSWER ERROR:", err);
+    res.status(500).json({ error: "Failed to fetch answers" });
+  }
+});
 
 module.exports = router;
