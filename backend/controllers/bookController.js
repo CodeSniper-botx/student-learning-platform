@@ -10,8 +10,7 @@ exports.uploadBook = async (req, res) => {
       return res.status(400).json({ error: "File not uploaded" });
     }
 
-    const fileUrl = `https://student-learning-platform-7trk.onrender.com/uploads/${req.file.filename}`;
-
+   const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
     const book = new Book({
       title: req.body.title,
       subject: req.body.subject,

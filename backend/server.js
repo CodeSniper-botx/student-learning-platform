@@ -46,6 +46,13 @@ app.use((err, req, res, next) => {
 app.get("/healthz", (req, res) => {
   res.send("OK");
 });
+const fs = require("fs");
+
+const uploadPath = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+}
 // 🔥 Server Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
