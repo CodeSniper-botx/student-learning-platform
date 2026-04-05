@@ -1,0 +1,93 @@
+/* 🌈 Global */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f6f8;
+}
+
+/* 🔥 Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  padding: 15px 30px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+nav h2 {
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* 👤 User */
+.user {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+/* 🔘 Button */
+button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4facfe;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+button:hover {
+  background-color: #3a8dde;
+}
+
+/* 📦 Container */
+.container {
+  padding: 20px;
+}
+
+/* 🧾 Card */
+.card {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 🖼 Image */
+img {
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* ✏ Input */
+input, textarea {
+  padding: 10px;
+  width: 250px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  width: 300px;
+  height: 80px;
+}
+
+/* 🟢 Best Answer */
+.best {
+  color: green;
+  font-weight: bold;
+}
