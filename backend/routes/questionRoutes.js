@@ -2,27 +2,37 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 
-const {
-  askQuestion,
-  getQuestions,
-  upvoteQuestion, // 🔥 IMPORTANT
-} = require("../controllers/questionController");
-
-// 🔥 multer config
+// STORAGE
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
+  destination: "uploads/",
+  filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
 const upload = multer({ storage });
 
-// 🔥 ROUTES
-router.post("/", upload.single("image"), askQuestion);
-router.get("/", getQuestions);
-router.put("/upvote/:id", upvoteQuestion); // 🔥 FIXED
+// ✅ IMPORTANT: "image" naam match hona chahiye
+router.post("/", upload.single("image"), async (req, res) => {
+  try {
+    const { text, userId } = req.body;
+
+    const newQuestion = {
+      text,
+      user: userId,
+      image: req.file ? req.file.path : null,
+    };
+
+    // save in DB
+    const Question = require("../models/Question");
+    const q = new Question(newQuestion);
+    await q.save();
+
+    res.json(q);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Question failed" });
+  }
+});
 
 module.exports = router;
