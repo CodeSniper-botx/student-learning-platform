@@ -136,7 +136,7 @@ function Questions() {
 
           {q?.image && (
             <img
-              src={`http://localhost:5000/${q.image}`}
+              src={`https://student-learning-platform-vvx2.onrender.com/${q.image}`}
               alt="question"
               style={styles.image}
             />

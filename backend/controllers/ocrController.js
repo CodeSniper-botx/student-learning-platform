@@ -1,4 +1,9 @@
 const Tesseract = require("tesseract.js");
+
+exports.extractText = async (imagePath) => {
+  const result = await Tesseract.recognize(imagePath, "eng");
+  return result.data.text;
+};
 const { fromPath } = require("pdf2pic");
 const fs = require("fs");
 
