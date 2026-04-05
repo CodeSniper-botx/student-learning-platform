@@ -1,6 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const multer = require("multer"); // ✅ THIS WAS MISSING
+const path = require("path");
+
+// storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, require("path").join(__dirname, "../uploads"));
+    cb(null, path.join(__dirname, "../uploads"));
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -9,6 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// POST ANSWER
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { text, questionId, userId } = req.body;
@@ -30,3 +37,5 @@ router.post("/", upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "Answer failed" });
   }
 });
+
+module.exports = router;
